@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% block title %}Register — ComplaintDesk{% endblock %}
+
+{% block extra_head %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/register.css') }}">
+
+{% endblock %}
+
+{% block body %}
+<div class="reg-wrap">
+    <div class="reg-header">
+        <h1>Create Account</h1>
+        <p>Join ComplaintDesk — Your voice matters</p>
+    </div>
+    <div class="reg-card">
+        <div class="form-row">
+            <div class="form-group">
+                <label class="form-label">Full Name</label>
+                <input type="text" id="rName" class="form-input" placeholder="Ram Shrestha">
+            </div>
+            <div class="form-group">
+                <label class="form-label">College Email</label>
+                <input type="email" id="rEmail" class="form-input" placeholder="you@student.edu.np">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-label">College</label>
+            <select id="rCollege" class="form-select">
+                <option>Samriddhi College</option>
+                <option>Kathmandu College of Technology</option>
+                <option>St. Xavier's College</option>
+                <option>NCIT</option>
+                <option>Patan Multiple Campus</option>
+                <option>Bhaktapur Multiple Campus</option>
+                <option> Crimson College of Technology</option>
+            </select>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label class="form-label">Department</label>
+                <select id="rDept" class="form-select">
+                    <option>Computer Science & IT</option>
+                    <option>Electronics & Communication</option>
+                    <option>Civil Engineering</option>
+                    <option>Mechanical Engineering</option>
+                    <option>Business Administration</option>
+                    <option>Science & Technology</option>
+                    <option>Arts & Humanities</option>
+                    <option>Medical Sciences</option>
+                    <option>Agriculture</option>
+                    <option>Other</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Semester</label>
+                <select id="rSem" class="form-select">
+                    <option value="1">1st</option><option value="2">2nd</option>
+                    <option value="3">3rd</option><option value="4" selected>4th</option>
+                    <option value="5">5th</option><option value="6">6th</option>
+                    <option value="7">7th</option><option value="8">8th</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-label">Password</label>
+            <input type="password" id="rPass" class="form-input" placeholder="Min 6 characters">
+        </div>
+        <button class="btn btn-primary" style="width:100%;justify-content:center;" onclick="register()" id="regBtn">
+            Create Account
+        </button>
+    </div>
+    <div class="back-link">Already have an account? <a href="/login">Sign in</a></div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    <script src="{{ url_for('static', filename='js/register.js') }}"></script>
+
+{% endblock %}

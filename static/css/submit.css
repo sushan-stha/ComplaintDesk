@@ -1,0 +1,59 @@
+.page { display:flex; flex-direction:column; min-height:100vh; }
+    .content { flex:1; max-width:800px; margin:0 auto; padding:2rem 1rem; width:100%; }
+    .page-title { font-size:1.5rem; font-weight:800; letter-spacing:-0.02em; margin-bottom:0.25rem; }
+    .page-sub { color:var(--gray); font-size:0.875rem; margin-bottom:2rem; }
+
+    .submit-grid { display:grid; grid-template-columns:1fr 340px; gap:1.5rem; }
+
+    .ai-preview {
+        border: 1.5px dashed var(--border);
+        border-radius: 12px; padding:1.25rem;
+        background: var(--off);
+        transition: all 0.3s;
+    }
+    .ai-preview.active { border-color: var(--blue-light); background: #EEF2FF; }
+    .ai-preview-title {
+        font-family:'Manrope',sans-serif; font-size:0.8rem; font-weight:700;
+        text-transform:uppercase; letter-spacing:0.08em; color:var(--gray);
+        margin-bottom:0.75rem;
+    }
+
+    .ai-row { display:flex; justify-content:space-between; align-items:center;
+               padding:0.5rem 0; border-bottom:1px solid var(--border); font-size:0.875rem; }
+    .ai-row:last-child { border-bottom:none; }
+    .ai-key { color:var(--gray); font-weight:500; }
+
+    .confidence-bar {
+        height:4px; background:var(--border); border-radius:2px;
+        margin-top:0.5rem; overflow:hidden;
+    }
+    .confidence-fill { height:100%; background:var(--blue); border-radius:2px; transition:width 0.5s; }
+
+    .tags-wrap { display:flex; flex-wrap:wrap; gap:0.4rem; margin-top:0.75rem; }
+    .tag-pill {
+        background: white; border:1px solid var(--border);
+        padding:0.2rem 0.5rem; border-radius:20px;
+        font-size:0.72rem; color:var(--gray);
+    }
+
+    .anon-toggle {
+        display:flex; align-items:center; gap:0.75rem;
+        padding:0.75rem 1rem;
+        background:var(--off); border-radius:8px;
+        cursor:pointer; user-select:none;
+    }
+    .toggle-switch {
+        width:36px; height:20px; background:var(--border);
+        border-radius:10px; position:relative; transition:background 0.2s; flex-shrink:0;
+    }
+    .toggle-switch.on { background:var(--blue); }
+    .toggle-knob {
+        width:16px; height:16px; background:white;
+        border-radius:50%; position:absolute; top:2px; left:2px;
+        transition:left 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.2);
+    }
+    .toggle-switch.on .toggle-knob { left:18px; }
+
+    @media(max-width:680px) {
+        .submit-grid { grid-template-columns:1fr; }
+    }

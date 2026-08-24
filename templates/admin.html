@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% block title %}Admin Dashboard — ComplaintDesk{% endblock %}
+
+{% block extra_head %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+{% endblock %}
+
+{% block body %}
+<div class="page admin-page">
+    <nav class="nav">
+        <a href="/" class="nav-brand"><div class="flag-stripe"></div> ComplaintDesk</a>
+        <div class="nav-links">
+            <div class="nav-user">
+                <div class="nav-avatar" id="navInitial">A</div>
+                <span id="navName">Admin</span>
+            </div>
+            <button class="nav-btn" style="background:rgba(255,255,255,0.15);" onclick="logout()">Out</button>
+        </div>
+    </nav>
+
+    <main class="content">
+        <div class="dashboard-header">
+            <div>
+                <div class="welcome">Admin <span>Dashboard</span></div>
+                <div id="subtext" style="color:var(--gray);font-size:0.875rem;margin-top:0.2rem;">Review and manage all student complaints</div>
+            </div>
+        </div>
+
+        <div class="stats-row">
+            <div class="stat-card">
+                <div class="stat-num" id="statTotal">—</div>
+                <div class="stat-label">Total Complaints</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-num" style="color:var(--accent);" id="statPending">—</div>
+                <div class="stat-label">Pending</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-num" style="color:var(--blue);" id="statReview">—</div>
+                <div class="stat-label">In Review</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-num" style="color:#16a34a;" id="statResolved">—</div>
+                <div class="stat-label">Resolved</div>
+            </div>
+        </div>
+
+        <div class="filter-bar">
+            <button class="filter-btn active" onclick="filterComplaints('All',this)">All</button>
+            <button class="filter-btn" onclick="filterComplaints('Pending',this)">Pending</button>
+            <button class="filter-btn" onclick="filterComplaints('In Review',this)">In Review</button>
+            <button class="filter-btn" onclick="filterComplaints('Resolved',this)">Resolved</button>
+            <button class="filter-btn" onclick="filterComplaints('Rejected',this)">Rejected</button>
+        </div>
+
+        <div id="complaintsList"></div>
+    </main>
+</div>
+
+<div class="modal-bg" id="modal">
+    <div class="modal" id="modalContent"></div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+{% endblock %}

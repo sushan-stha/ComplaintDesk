@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}Login — ComplaintDesk{% endblock %}
+
+{% block extra_head %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+
+{% endblock %}
+
+{% block body %}
+<div class="login-wrap">
+    <div class="login-header">
+        <div class="brand-mark">CD</div>
+        <h1><span style="color:#F05A67; font-size: 60px;">C</span>omplaint<span style="color: #F05A67; font-size: 60px;">D</span>esk</h1>
+        <p>Submit.Track.Resolve</p>
+    </div>
+
+    <div class="login-card">
+        <div class="tab-row">
+            <button class="tab-btn active" type="button">Sign In</button>
+            <button class="tab-btn" onclick="window.location='/register'">Register</button>
+        </div>
+
+        <div id="loginForm">
+            <div class="form-group">
+                <label class="form-label">Email Address</label>
+                <input type="email" id="loginEmail" class="form-input" placeholder="you@student.edu.np">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Password</label>
+                <input type="password" id="loginPassword" class="form-input" placeholder="••••••••">
+            </div>
+            <button class="btn btn-primary" style="width:100%; justify-content:center;" onclick="login()" id="loginBtn">
+                Sign In
+            </button>
+        </div>
+
+        <!-- <div class="demo-box">
+            <strong>Demo Accounts:</strong><br>
+            🎓 Student: <span class="demo-cred" onclick="fillCred('ram@student.edu.np','student123')">ram@student.edu.np / student123</span><br>
+            🛡️ Admin: <span class="demo-cred" onclick="fillCred('admin@college.edu.np','admin123')">admin@college.edu.np / admin123</span>
+        </div> -->
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    <script src="{{ url_for('static', filename='js/login.js') }}"></script>
+
+{% endblock %}

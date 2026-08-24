@@ -1,0 +1,38 @@
+body { display:flex; align-items:center; justify-content:center; min-height:100vh;
+          padding: 2rem; background:#e9edf6; }
+.reg-wrap {
+       width:100%; max-width:1080px; height:calc(100vh - 4rem); display:grid;
+       min-height:0;
+       grid-template-columns:0.92fr 1.08fr; overflow:hidden; border-radius:24px;
+       background:white; box-shadow:0 24px 70px rgba(36,43,107,0.18);
+}
+.reg-header {
+       position:relative; display:flex; flex-direction:column; justify-content:center;
+       padding:4rem; overflow:hidden; color:white;
+       background:linear-gradient(145deg,#242b6b 0%,#3b438d 58%,#247e9d 100%);
+}
+.reg-header::before, .reg-header::after {
+       content:""; position:absolute; border:1px solid rgba(255,255,255,0.16);
+       border-radius:50%; pointer-events:none;
+}
+.reg-header::before { width:360px; height:360px; right:-160px; top:-110px; box-shadow:0 0 0 28px rgba(255,255,255,0.04),0 0 0 56px rgba(255,255,255,0.035); }
+.reg-header::after { width:260px; height:260px; left:-150px; bottom:-100px; }
+.reg-header h1, .reg-header p { position:relative; z-index:1; }
+.reg-header h1 { color:white; font-size:clamp(2rem,4vw,3.1rem); letter-spacing:-0.04em; max-width:360px; }
+.reg-header p { color:rgba(255,255,255,0.72); font-size:0.95rem; margin-top:0.8rem; max-width:280px; line-height:1.6; }
+.reg-card { align-self:center; width:min(100%,560px); margin:auto; padding:3.5rem; }
+.form-row { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+.back-link { grid-column:2; text-align:center; margin:-2rem auto 2rem; font-size:0.875rem; color:var(--gray); }
+.back-link a { color:var(--blue-light); font-weight:700; }
+
+@media (max-width:720px) {
+       body { padding:0; }
+       .reg-wrap { height:auto; min-height:100vh; border-radius:0; grid-template-columns:1fr; }
+       .reg-header { min-height:260px; padding:2.5rem; justify-content:flex-end; }
+       .reg-header h1 { font-size:2.25rem; }
+       .reg-card { padding:2.5rem 2rem 1rem; }
+       .back-link { grid-column:auto; margin:0 auto 2rem; }
+}
+@media (max-width:480px) {
+       .form-row { grid-template-columns:1fr; gap:0; }
+}

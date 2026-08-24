@@ -1,0 +1,84 @@
+.page { display:flex; flex-direction:column; min-height:100vh; }
+    .content { flex:1; max-width:1000px; margin:0 auto; padding:2rem 1rem; width:100%; }
+    .nav-links .nav-btn { text-decoration:none; }
+
+    .dashboard-header {
+        display:flex; justify-content:space-between; align-items:center; margin-bottom:2rem;
+    }
+    .welcome { font-size:1.4rem; font-weight:800; letter-spacing:-0.02em; }
+    .welcome span { color:var(--red); }
+
+    /* Stats row */
+    .stats-row { display:grid; grid-template-columns:repeat(4,1fr); gap:1rem; margin-bottom:2rem; }
+    .stat-card {
+        background:white; border-radius:10px; padding:1.1rem 1.25rem;
+        border:1px solid var(--border); box-shadow:var(--shadow);
+    }
+    .stat-num { font-family:'Manrope',sans-serif; font-size:1.8rem; font-weight:800; line-height:1; }
+    .stat-label { font-size:0.75rem; color:var(--gray); margin-top:0.25rem; text-transform:uppercase; letter-spacing:0.05em; }
+
+    /* Filter bar */
+    .filter-bar { display:flex; gap:0.5rem; margin-bottom:1.25rem; flex-wrap:wrap; }
+    .filter-btn {
+        padding:0.35rem 0.8rem; border:1.5px solid var(--border);
+        border-radius:20px; background:white; font-size:0.8rem; font-weight:500;
+        cursor:pointer; transition:all 0.15s; font-family:'Nunito Sans',sans-serif;
+        color:var(--gray);
+    }
+    .filter-btn.active { background:var(--blue); color:white; border-color:var(--blue); }
+
+    /* Complaint cards */
+    .complaint-card {
+        background:white; border-radius:10px; padding:1.25rem;
+        border:1px solid var(--border); box-shadow:var(--shadow);
+        margin-bottom:0.75rem; transition:box-shadow 0.15s; cursor:pointer;
+    }
+    .complaint-card:hover { box-shadow:var(--shadow-lg); border-color:#ccc; }
+
+    .c-header { display:flex; justify-content:space-between; align-items:flex-start; gap:1rem; }
+    .c-title { font-family:'Manrope',sans-serif; font-weight:700; font-size:1rem; }
+    .c-badges { display:flex; gap:0.4rem; flex-shrink:0; flex-wrap:wrap; justify-content:flex-end; }
+    .c-meta { display:flex; gap:1rem; margin-top:0.5rem; font-size:0.78rem; color:var(--gray); flex-wrap:wrap; }
+    .c-desc { margin-top:0.6rem; font-size:0.875rem; color:#555; line-height:1.5;
+               display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+
+    .c-footer { display:flex; justify-content:space-between; align-items:center;
+                margin-top:0.75rem; padding-top:0.75rem; border-top:1px solid var(--off); }
+    .upvote-btn {
+        display:flex; align-items:center; gap:0.3rem;
+        background:none; border:1.5px solid var(--border);
+        border-radius:20px; padding:0.25rem 0.7rem;
+        font-size:0.8rem; cursor:pointer; transition:all 0.15s;
+        font-family:'Nunito Sans',sans-serif; color:var(--gray);
+    }
+    .upvote-btn:hover, .upvote-btn.voted { background:var(--off); border-color:var(--blue); color:var(--blue); }
+
+    .mine-tag {
+        background:#EEF2FF; color:var(--blue); font-size:0.68rem; font-weight:700;
+        padding:0.1rem 0.5rem; border-radius:20px; text-transform:uppercase; letter-spacing:0.04em;
+    }
+
+    /* Modal */
+    .modal-bg { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.4);
+                z-index:500; align-items:center; justify-content:center; }
+    .modal-bg.open { display:flex; }
+    .modal { background:white; border-radius:16px; max-width:560px; width:calc(100% - 2rem);
+             max-height:80vh; overflow-y:auto; padding:1.75rem; box-shadow:var(--shadow-lg); }
+    .modal-header { display:flex; justify-content:space-between; align-items:flex-start;
+                    margin-bottom:1.25rem; }
+    .modal-close { background:none; border:none; font-size:1.3rem; cursor:pointer; color:var(--gray); }
+
+    .timeline { border-left:2px solid var(--border); padding-left:1rem; margin-top:1rem; }
+    .tl-item { position:relative; padding-bottom:1rem; font-size:0.85rem; }
+    .tl-dot {
+        width:10px; height:10px; background:var(--blue); border-radius:50%;
+        position:absolute; left:-1.35rem; top:3px; border:2px solid white;
+        box-shadow:0 0 0 2px var(--blue);
+    }
+    .tl-time { color:var(--gray); font-size:0.75rem; }
+
+    .admin-response-box {
+        background:#EEF2FF; border-left:3px solid var(--blue-light);
+        border-radius:0 8px 8px 0; padding:0.75rem 1rem;
+        margin-top:0.75rem; font-size:0.875rem;
+    }

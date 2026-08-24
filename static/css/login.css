@@ -1,0 +1,62 @@
+body { display: flex; align-items: center; justify-content: center; min-height: 100vh;
+       padding: 2rem; background: #e9edf6; }
+
+.login-wrap {
+    width: 100%; max-width: 1080px; height: calc(100vh - 4rem); display: grid;
+    min-height: 0;
+    grid-template-columns: 0.92fr 1.08fr; overflow: hidden; border-radius: 24px;
+    background: white; box-shadow: 0 24px 70px rgba(36,43,107,0.18);
+}
+
+.login-header {
+    position: relative; display: flex; flex-direction: column; justify-content: center;
+    padding: 4rem; overflow: hidden; color: white;
+    background: linear-gradient(145deg, #242b6b 0%, #3b438d 58%, #247e9d 100%);
+}
+.login-header::before, .login-header::after {
+    content: ""; position: absolute; border: 1px solid rgba(255,255,255,0.16);
+    border-radius: 50%; pointer-events: none;
+}
+.login-header::before { width: 360px; height: 360px; right: -160px; top: -110px; box-shadow: 0 0 0 28px rgba(255,255,255,0.04), 0 0 0 56px rgba(255,255,255,0.035); }
+.login-header::after { width: 260px; height: 260px; left: -150px; bottom: -100px; }
+
+.brand-mark {
+    position: relative; z-index: 1; width: 54px; height: 54px;
+    background: var(--red); color: white; border-radius: 14px; margin-bottom: 2.5rem;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem; font-weight: 800; letter-spacing: 0.04em;
+    box-shadow: 0 10px 24px rgba(0,0,0,0.18);
+}
+.login-header h1, .login-header p { position: relative; z-index: 1; }
+.login-header h1 { color: white; font-size: clamp(2rem, 4vw, 3.1rem); letter-spacing: -0.04em; max-width: 360px; }
+.login-header p { color: rgba(255,255,255,0.72); font-size: 0.95rem; margin-top: 0.8rem; }
+
+.login-card { align-self: center; width: min(100%, 460px); margin: auto; padding: 3.5rem; }
+
+    .tab-row {
+        display: flex; gap: 0.5rem;
+        background: var(--off); border-radius: 8px; padding: 4px;
+        margin-bottom: 1.5rem;
+    }
+    .tab-btn {
+        flex: 1; padding: 0.45rem; border: none; background: transparent;
+        border-radius: 6px; font-family: 'Nunito Sans', sans-serif; font-size: 0.875rem;
+        font-weight: 500; cursor: pointer; transition: all 0.15s; color: var(--gray);
+    }
+    .tab-btn.active { background: white; color: var(--dark); box-shadow: 0 1px 4px rgba(0,0,0,0.1); }
+
+    .demo-box {
+        background: var(--off); border-radius: 8px; padding: 0.75rem 1rem;
+        margin-top: 1.25rem; font-size: 0.8rem; color: var(--gray);
+    }
+    .demo-box strong { color: var(--dark); }
+    .demo-cred { cursor: pointer; color: var(--blue-light); text-decoration: underline; }
+
+    @media (max-width: 720px) {
+        body { padding: 0; }
+        .login-wrap { height: auto; min-height: 100vh; border-radius: 0; grid-template-columns: 1fr; }
+        .login-header { min-height: 290px; padding: 2.5rem; justify-content: flex-end; }
+        .brand-mark { margin-bottom: 1.5rem; }
+        .login-header h1 { font-size: 2.25rem; }
+        .login-card { padding: 2.5rem 2rem; }
+    }
