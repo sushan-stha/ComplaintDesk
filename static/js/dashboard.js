@@ -32,6 +32,7 @@ function filterComplaints(filter, btn) {
 
 function renderComplaints() {
     const list = document.getElementById("complaintsList");
+    const isAdminPage = !!document.querySelector('.admin-page');
     let filtered = allComplaints;
     if (currentFilter === "Mine") {
         filtered = allComplaints.filter(c => c.user_id === myUserId);
@@ -69,9 +70,9 @@ function renderComplaints() {
                 <div style="font-size:0.78rem;color:var(--gray);">
                     Sentiment: <span class="badge ${badgeClass('sentiment',c.sentiment)}" style="font-size:0.68rem;">${c.sentiment}</span>
                 </div>
-                <button class="upvote-btn" onclick="upvote(event,${c.id},this)">
+                ${isAdminPage ? '' : `<button class="upvote-btn" onclick="upvote(event,${c.id},this)">
                     👍 <span id="upvote-${c.id}">${c.upvotes}</span>
-                </button>
+                </button>`}
             </div>
         </div>
     `).join('');
