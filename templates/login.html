@@ -10,8 +10,12 @@
 {% block body %}
 <div class="login-wrap">
     <div class="login-header">
-        <div class="brand-mark">CD</div>
-        <h1><span style="color:#F05A67; font-size: 60px;">C</span>omplaint<span style="color: #F05A67; font-size: 60px;">D</span>esk</h1>
+        <div class="brand-stack">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="ComplaintDesk logo" class="login-logo">
+            <h1>
+                <span style="color:#E65A40; font-size: 60px;">C</span>omplaint<span style="color: #E65A40; font-size: 60px;">D</span>esk
+            </h1>
+        </div>
         <p>Submit.Track.Resolve</p>
     </div>
 
