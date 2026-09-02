@@ -7,7 +7,7 @@ No heavy ML dependencies needed (works offline)
 import re
 from textblob import TextBlob
 
-# ─── Category Keywords ────────────────────────────────────────────────────────
+# ------ Category Keywords------
 CATEGORY_KEYWORDS = {
     "Academic": [
         "exam", "examination", "result", "marks", "grade", "grading", "teacher",
@@ -39,7 +39,8 @@ CATEGORY_KEYWORDS = {
         "lift", "elevator", "ramp", "disabled", "wifi", "network", "internet",
         "computer", "lab", "equipment", "fan", "ac", "air conditioner",
         "light", "bulb", "leaking", "roof", "wall", "floor", "ground",
-        "playground", "sports", "canteen", "cafeteria", "garden", "gate"
+        "playground", "sports", "canteen", "cafeteria", "garden", "gate",
+        "basin", "door"
     ],
     "Administration": [
         "admin", "administration", "office", "staff", "principal", "dean",
