@@ -5,7 +5,13 @@ async function register() {
     const pass = document.getElementById("rPass").value;
 
     if (!name || !email || !pass) { toast("Please fill all fields", "error"); return; }
-    if (pass.length < 6) { toast("Password must be at least 6 characters", "error"); return; }
+    if (!/^[A-Za-z]+(?:\s+[A-Za-z]+)*$/.test(name)) {
+        toast("Name can contain letters and spaces only", "error"); return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        toast("Please enter a valid email address", "error"); return;
+    }
+    if (pass.length < 8) { toast("Password must be at least 6 characters", "error"); return; }
 
     btn.innerHTML = '<span class="spinner"></span> Creating...'; btn.disabled = true;
 
