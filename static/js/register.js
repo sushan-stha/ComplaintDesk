@@ -1,3 +1,13 @@
+function togglePassword() {
+    const password = document.getElementById("rPass");
+    const toggle = document.getElementById("passwordToggle");
+    const isHidden = password.type === "password";
+
+    password.type = isHidden ? "text" : "password";
+    toggle.innerHTML = "&#128065;";
+    toggle.setAttribute("aria-label", isHidden ? "Hide password" : "Show password");
+}
+
 async function register() {
     const btn = document.getElementById("regBtn");
     const name = document.getElementById("rName").value.trim();

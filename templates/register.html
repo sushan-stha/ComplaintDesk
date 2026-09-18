@@ -61,7 +61,10 @@
         </div>
         <div class="form-group">
             <label class="form-label">Password</label>
-            <input type="password" id="rPass" class="form-input" placeholder="Min 8 characters, 1 capital and 1 special character">
+            <div class="password-field">
+                <input type="password" id="rPass" class="form-input" placeholder="Min 8 characters, 1 capital and 1 special character">
+                <button type="button" class="password-toggle" id="passwordToggle" onclick="togglePassword()" aria-label="Show password">&#128065;</button>
+            </div>
         </div>
         <button class="btn btn-primary" style="width:100%;justify-content:center;" onclick="register()" id="regBtn">
             Create Account
