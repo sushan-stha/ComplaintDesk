@@ -7,6 +7,7 @@ Database: MySQL (via PyMySQL)
 
 import os
 import hashlib
+import re
 from functools import wraps
 from flask import Flask, render_template, request, jsonify, session, redirect, url_for, g
 
@@ -188,6 +189,12 @@ def login():
 @app.route("/api/register", methods=["POST"])
 def register():
     data = request.json
+    password = data.get("password", "")
+    if len(password) < 8 or not re.search(r"[A-Z]", password) or not re.search(r"[^A-Za-z0-9]", password):
+        return jsonify({
+            "error": "Password must be at least 8 characters and contain a capital letter and special character"
+        }), 400
+
     db = get_db()
 
     with db.cursor() as cur:
@@ -199,7 +206,7 @@ def register():
         cur.execute(
             "INSERT INTO users (name, email, password_hash, role, department, semester, college) "
             "VALUES (%s,%s,%s,%s,%s,%s,%s)",
-            (data["name"], data["email"], hash_password(data["password"]),
+            (data["name"], data["email"], hash_password(password),
              "student", data.get("department", ""), data.get("semester", 1),
              data.get("college", "Tribhuvan University"))
         )

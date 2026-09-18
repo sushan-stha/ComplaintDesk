@@ -11,7 +11,9 @@ async function register() {
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
         toast("Please enter a valid email address", "error"); return;
     }
-    if (pass.length < 8) { toast("Password must be at least 6 characters", "error"); return; }
+    if (pass.length < 8) { toast("Password must be at least 8 characters", "error"); return; }
+    if (!/[A-Z]/.test(pass)) { toast("Password must contain at least one capital letter", "error"); return; }
+    if (!/[^A-Za-z0-9]/.test(pass)) { toast("Password must contain at least one special character", "error"); return; }
 
     btn.innerHTML = '<span class="spinner"></span> Creating...'; btn.disabled = true;
 
