@@ -319,10 +319,49 @@ def get_complaints():
     return jsonify(complaints)
 
 @app.route("/api/complaints/<int:cid>", methods=["PATCH"])
-@admin_required
+@login_required
 def update_complaint(cid):
-    data = request.json
+    data = request.json or {}
     db = get_db()
+
+    if session.get("role") != "admin":
+        title = data.get("title", "").strip()
+        description = data.get("description", "").strip()
+        if not title or not description:
+            return jsonify({"error": "Title and description are required"}), 400
+        if len(description) < 20:
+            return jsonify({"error": "Description must be at least 20 characters"}), 400
+
+        with db.cursor() as cur:
+            cur.execute("SELECT user_id FROM complaints WHERE id = %s", (cid,))
+            complaint = cur.fetchone()
+            if not complaint:
+                return jsonify({"error": "Complaint not found"}), 404
+            if complaint["user_id"] != session["user_id"]:
+                return jsonify({"error": "You can only edit your own complaints"}), 403
+
+            ai_result = classifier.classify(title, description)
+            cur.execute(
+                """UPDATE complaints
+                   SET title = %s, description = %s, category = %s, priority = %s,
+                       sentiment = %s, sentiment_score = %s
+                   WHERE id = %s""",
+                (title, description, ai_result["category"], ai_result["priority"],
+                 ai_result["sentiment"], ai_result["sentiment_score"], cid)
+            )
+            cur.execute("DELETE FROM complaint_tags WHERE complaint_id = %s", (cid,))
+            for tag in ai_result["tags"]:
+                cur.execute(
+                    "INSERT INTO complaint_tags (complaint_id, tag) VALUES (%s,%s)",
+                    (cid, tag)
+                )
+            cur.execute(
+                "INSERT INTO activity_log (complaint_id, action, performed_by, note) "
+                "VALUES (%s,%s,%s,%s)",
+                (cid, "Edited", session["name"], "Complaint details updated")
+            )
+        db.commit()
+        return jsonify({"success": True, "ai": ai_result})
 
     updates = []
     values = []
@@ -354,6 +393,25 @@ def update_complaint(cid):
             )
         db.commit()
 
+    return jsonify({"success": True})
+
+@app.route("/api/complaints/<int:cid>", methods=["DELETE"])
+@login_required
+def delete_complaint(cid):
+    db = get_db()
+    with db.cursor() as cur:
+        cur.execute("SELECT user_id FROM complaints WHERE id = %s", (cid,))
+        complaint = cur.fetchone()
+        if not complaint:
+            return jsonify({"error": "Complaint not found"}), 404
+        if complaint["user_id"] != session["user_id"]:
+            return jsonify({"error": "You can only delete your own complaints"}), 403
+
+        cur.execute("DELETE FROM complaint_tags WHERE complaint_id = %s", (cid,))
+        cur.execute("DELETE FROM activity_log WHERE complaint_id = %s", (cid,))
+        cur.execute("DELETE FROM upvotes WHERE complaint_id = %s", (cid,))
+        cur.execute("DELETE FROM complaints WHERE id = %s", (cid,))
+    db.commit()
     return jsonify({"success": True})
 
 @app.route("/api/complaints/<int:cid>/upvote", methods=["POST"])

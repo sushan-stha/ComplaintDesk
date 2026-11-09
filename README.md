@@ -16,6 +16,7 @@ ComplaintDesk is a full-stack web application that lets students submit complain
 - 🔒 **Privacy-Aware Visibility** — see "How Complaint Visibility Works" below
 - 📊 **Admin Analytics Dashboard** — bar charts for categories, priorities, sentiment
 - 👍 **Upvoting System** — students can upvote shared issues
+- ✏️ **Complaint Management** — students can edit or delete their own submitted complaints
 - 📋 **Activity Timeline** — full audit trail per complaint
 - 🎓 **Nepali University Support** — TU, PU, KU, etc.
 
@@ -203,7 +204,8 @@ Extracts top-5 most relevant keywords from the complaint text based on the detec
 | POST | `/api/classify` | Preview AI classification |
 | POST | `/api/complaints` | Submit new complaint |
 | GET | `/api/complaints` | List complaints — admin sees all; students see the shared feed of non-anonymous complaints plus all of their own (including their own anonymous ones) |
-| PATCH | `/api/complaints/<id>` | Update status/response (admin) |
+| PATCH | `/api/complaints/<id>` | Students update their own title/description; admins update status/response |
+| DELETE | `/api/complaints/<id>` | Delete your own complaint |
 | POST | `/api/complaints/<id>/upvote` | Toggle upvote |
 | GET | `/api/complaints/<id>/activity` | Get activity log |
 | GET | `/api/stats` | Get statistics for charts |

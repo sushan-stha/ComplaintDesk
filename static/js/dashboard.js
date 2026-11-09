@@ -91,6 +91,7 @@ async function openModal(id) {
     const logs = await apiFetch(`/api/complaints/${id}/activity`);
     const modal = document.getElementById("modal");
     const content = document.getElementById("modalContent");
+    const isOwner = c.user_id === myUserId && !document.querySelector('.admin-page');
 
     content.innerHTML = `
         <div class="modal-header">
@@ -121,6 +122,23 @@ async function openModal(id) {
         <div class="admin-response-box">
             <div style="font-size:0.75rem;font-weight:600;color:var(--blue);margin-bottom:0.3rem;">ADMIN RESPONSE</div>
             ${escHtml(c.admin_response)}
+        </div>` : ''}
+
+        ${isOwner ? `
+        <div class="owner-edit-box" style="border-top:1px solid var(--border);margin-top:1.25rem;padding-top:1.25rem;">
+            <div style="font-family:'Manrope',sans-serif;font-size:0.8rem;font-weight:800;text-transform:uppercase;letter-spacing:0.06em;color:var(--gray);margin-bottom:0.8rem;">Edit Your Complaint</div>
+            <label class="form-group" style="display:block;margin-bottom:0.75rem;">
+                <span class="form-label">Title</span>
+                <input id="complaintTitle" class="form-input" type="text" value="${escHtml(c.title)}">
+            </label>
+            <label class="form-group" style="display:block;margin-bottom:0.75rem;">
+                <span class="form-label">Description</span>
+                <textarea id="complaintDescription" class="form-textarea" rows="4">${escHtml(c.description)}</textarea>
+            </label>
+            <div style="display:flex;gap:0.6rem;">
+                <button class="btn btn-primary" onclick="saveOwnComplaint(${c.id})">Save Changes</button>
+                <button class="btn btn-ghost" onclick="deleteOwnComplaint(${c.id})">Delete Complaint</button>
+            </div>
         </div>` : ''}
 
         ${document.querySelector('.admin-page') ? `
@@ -161,6 +179,58 @@ async function openModal(id) {
     `;
 
     modal.classList.add("open");
+}
+
+async function saveOwnComplaint(id) {
+    const title = document.getElementById("complaintTitle").value.trim();
+    const description = document.getElementById("complaintDescription").value.trim();
+    if (!title || !description) {
+        toast("Title and description are required", "error");
+        return;
+    }
+    if (description.length < 20) {
+        toast("Description must be at least 20 characters", "error");
+        return;
+    }
+
+    const data = await apiFetch(`/api/complaints/${id}`, {
+        method: "PATCH",
+        body: {title, description}
+    });
+    if (data.error) {
+        toast(data.error, "error");
+        return;
+    }
+
+    const complaint = allComplaints.find(item => item.id === id);
+    Object.assign(complaint, {
+        title,
+        description,
+        category: data.ai.category,
+        priority: data.ai.priority,
+        sentiment: data.ai.sentiment,
+        sentiment_score: data.ai.sentiment_score,
+        tags: data.ai.tags
+    });
+    toast("Complaint updated successfully", "success");
+    closeModal();
+    renderComplaints();
+}
+
+async function deleteOwnComplaint(id) {
+    if (!window.confirm("Delete this complaint permanently?")) return;
+
+    const data = await apiFetch(`/api/complaints/${id}`, {method: "DELETE"});
+    if (data.error) {
+        toast(data.error, "error");
+        return;
+    }
+
+    allComplaints = allComplaints.filter(complaint => complaint.id !== id);
+    toast("Complaint deleted successfully", "success");
+    closeModal();
+    renderComplaints();
+    await loadStats();
 }
 
 async function saveComplaint(id) {
