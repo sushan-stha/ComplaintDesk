@@ -67,6 +67,20 @@ body { display: flex; align-items: center; justify-content: center; min-height: 
 
 .login-card { align-self: center; width: min(100%, 460px); margin: auto; padding: 3.5rem; }
 
+.password-field { position: relative; }
+.password-field .form-input { padding-right: 4.5rem; }
+.password-toggle {
+    position: absolute; top: 0; right: 0; bottom: 0; width: 3rem;
+    display: flex; align-items: center; justify-content: center;
+    border: 0; border-radius: 0 7px 7px 0; background: transparent; color: #000;
+    cursor: pointer; font: 600 0.8rem 'Nunito Sans', sans-serif;
+    padding: 0 0.25rem; line-height: 1; appearance: none;
+    transition: background-color 0.15s ease;
+}
+.password-toggle:hover,
+.password-toggle:focus-visible,
+.password-toggle:active { background: #EEF2FF; color: #000; }
+
     .tab-row {
         display: flex; gap: 0.5rem;
         background: var(--off); border-radius: 8px; padding: 4px;
